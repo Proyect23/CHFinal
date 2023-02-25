@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<main class="container">
+  <h1 class="card-body text-center">
+    TASK 
+  </h1>
+  <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Titulo</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Create</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for task in tasks %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>
+            <a href="{% url 'taskdetails' task.id%}">
+            {{task.title}} 
+            </a>
+          </td>
+          <td>{{task.descripcion}}</td>
+          <td>{{task.create}}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+</main>
+
+
+{% endblock %}

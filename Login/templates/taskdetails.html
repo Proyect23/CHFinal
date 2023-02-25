@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<body>
+    <h1 class="card-header text-center">
+        TASK STATUS
+    </h1>
+    <form style="width: 40rem; height: 40"  class="card card-body row h-100 card justify-content-center align-items-center" action="/task/newtask/" method="POST">
+    {% csrf_token %}
+        <fieldset class="card text-center">
+            <legend>{{task.title|upper }}</legend>
+            {% for field in form %}
+                {% if field.errors %}
+                    <div class="control-group error">
+                        <label class="control-label">{{ field.label }}</label> 
+                        <div class="controls">{{ field }}
+                            <span class="help-inline">
+                                {% for error in  field.errors %}{{ error }}{% endfor %}
+                            </span>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="control-group">
+                        <label class="control-label">{{ field.label }}</label> 
+                        <div class="controls">{{ field }}
+                            {% if field.help_text %}
+                                <p class="help-inline"><small>{{ field.help_text }}</small></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </fieldset>
+            <form action="{% url 'taskdelete' task.id%}" method="POST">
+                <a class="text-center" >
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary" >Complete</button>
+                </a>
+    
+                <a class="text-center">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary" >Delete</button>
+                </form>
+                </a>
+    
+    </form>
+    
+</body>
+
+{% endblock %}
